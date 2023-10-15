@@ -1,9 +1,14 @@
 package jpabook.jpashop.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Member {
@@ -15,6 +20,13 @@ public class Member {
     private String city;
     private String street;
     private  String zipcode;
+
+    @OneToMany(mappedBy = "member") // @ManyToOne 이 적힌 외래키 객체를 적어준다.
+    private List<Order> orders = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
 
     public Long getId() {
         return id;
